@@ -33,10 +33,18 @@ Customer-Churn-Prediction/
 │   ├── xgboost_churn_model.joblib     # Best performing model
 │   ├── standard_scaler.joblib          # Feature scaler
 │   └── model_metadata.joblib           # Model information
-├── src/                              # Source code (future development)
 ├── requirements.txt                    # Python dependencies
 └── README.md                          # This file
 ```
+
+## Current Project Status
+
+- Exploratory Data Analysis completed
+- Data preprocessing and feature engineering completed
+- Processed, training, and testing datasets generated
+- Logistic Regression, Random Forest, and XGBoost models trained and evaluated
+- XGBoost selected as the best-performing model based on AUC
+- Final model artifacts saved in the models/ directory
 
 ## Key Findings & Business Insights
 
@@ -111,8 +119,8 @@ Customer-Churn-Prediction/
 
 ```bash
 # Clone repository
-git clone https://github.com/WageehGadd/Customer-Churn-Prediction.git
-cd Customer-Churn-Prediction
+git clone https://github.com/WageehGadd/Customer-Churn-Prediction..git
+cd "Customer-Churn-Prediction."
 
 # Install dependencies
 pip install -r requirements.txt
@@ -127,20 +135,31 @@ jupyter notebook
 2. Data Preprocessing: `notebooks/02_preprocessing_and_feature_engineering.ipynb`
 3. Model Training: `notebooks/03_modeling_and_evaluation.ipynb`
 
-### Quick Prediction
+### Batch Prediction Example
 
 ```python
 import joblib
 import pandas as pd
 
-model = joblib.load('models/xgboost_churn_model.joblib')
+model = joblib.load("models/xgboost_churn_model.joblib")
 
+test_data = pd.read_csv("data/test_data.csv")
 
-data = pd.read_csv('data/processed_churn_data.csv')
+if "Churn" in test_data.columns:
+    X_test = test_data.drop("Churn", axis=1)
+    y_test = test_data["Churn"]
+else:
+    X_test = test_data
 
+predictions = model.predict(X_test)
+probabilities = model.predict_proba(X_test)[:, 1]
 
-predictions = model.predict(data.drop('Churn', axis=1))
-probabilities = model.predict_proba(data.drop('Churn', axis=1))[:, 1]
+results = pd.DataFrame({
+    "prediction": predictions,
+    "churn_probability": probabilities
+})
+
+print(results.head())
 ```
 
 ## Model Metrics in Detail
@@ -156,7 +175,7 @@ probabilities = model.predict_proba(data.drop('Churn', axis=1))[:, 1]
 
 - True Positive Rate: 69.0% (We catch 69% of actual churners)
 - False Positive Rate: 11.1% (Only 11% of loyal customers get flagged)
-- Business Impact: Potential $2.3M annual savings for 10K customers
+- Business Impact: Potential savings can be estimated by combining churn probability, customer lifetime value, and retention campaign cost.
 
 ## Future Enhancements
 
@@ -201,12 +220,12 @@ probabilities = model.predict_proba(data.drop('Churn', axis=1))[:, 1]
 
 ## License
 
-This project is licensed under MIT License - see LICENSE file for details.
+This project is intended to be released under the MIT License.
 
 ## Contact
 
-- Project Repository: https://github.com/WageehGadd/Customer-Churn-Prediction
-- Issues & Questions: https://github.com/WageehGadd/Customer-Churn-Prediction/issues
+- Project Repository: https://github.com/WageehGadd/Customer-Churn-Prediction.
+- Issues & Questions: https://github.com/WageehGadd/Customer-Churn-Prediction./issues
 
 ---
 
@@ -215,7 +234,7 @@ This project is licensed under MIT License - see LICENSE file for details.
 ### Business Impact Achieved
 
 - Churn Prediction Accuracy: 79.6%
-- Potential Revenue Savings: $2.3M annually
+- Potential Revenue Savings: Can be estimated using business-specific customer lifetime value and retention cost assumptions.
 - Customer Insights: 15+ key risk factors identified
 - Model Performance: AUC of 0.854 (excellent discrimination)
 

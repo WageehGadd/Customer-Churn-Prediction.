@@ -65,6 +65,36 @@ Customer-Churn-Prediction/
 3. Optimize Pricing Strategy: Review high-tier pricing for fiber optic services
 4. Enhance Tech Support: Proactive support can reduce churn by 63%
 
+## Visual Results
+
+### 1. Exploratory Data Analysis & Key Risk Factors
+
+#### Customer Churn Distribution
+![Customer Churn Distribution](assets/images/churn_distribution.png)
+*Insight: Class imbalance is present, with approximately 26.5% of customers having churned. This requires stratified splits and appropriate class weights during training.*
+
+#### Risk Factors: Contract, Internet, & Support
+![Churn by Contract, Internet Service, and Tech Support](assets/images/churn_by_contract.png)
+*Insight: Month-to-month contracts, fiber optic internet services, and lack of tech support are high-risk segments with churn rates exceeding 40%.*
+
+#### Churn Rate by Tenure Group
+![Churn Rate by Tenure Group](assets/images/churn_by_tenure_group.png)
+*Insight: Churn is significantly higher for new customers (0-12 months tenure) at 47.4% and decreases dramatically as tenure increases, dropping to 6.6% for customers active over 5 years.*
+
+### 2. Model Performance & Evaluation
+
+#### ROC Curve Comparison
+![ROC Curve Comparison](assets/images/roc_curve_comparison.png)
+*Insight: The trained models show strong discriminative performance, with AUC scores of approximately 0.84 on the test set.*
+
+#### XGBoost Confusion Matrix
+![XGBoost Confusion Matrix](assets/images/xgboost_confusion_matrix.png)
+*Insight: The classification model balances false negatives and false positives, helping identify a meaningful portion of actual churners while keeping false alarms manageable.*
+
+#### XGBoost Feature Importance
+![XGBoost Feature Importance](assets/images/feature_importance.png)
+*Insight: Contract types (especially two-year commitments) and fiber optic service are the strongest predictors of customer churn behavior.*
+
 ## Model Performance Comparison
 
 | Model | Accuracy | Precision | Recall | F1-Score | AUC | Recommendation |
